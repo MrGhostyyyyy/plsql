@@ -1,3 +1,4 @@
+-- feladatok: https://people.inf.elte.hu/nikovits/AB1/feladat7_plsql.txt
 CREATE OR REPLACE FUNCTION prim(n integer)
 RETURN number IS
 BEGIN
@@ -16,20 +17,20 @@ END;
 /
 
 SELECT prim(26388279066623) from dual;
--- procedúra
--- CREATE OR REPLACE PROCEDURE az megcsinálja/felülirja
--- aztán függvény_név(paraméterek)
---  defaultban IN a paraméter (n IN number)
---             IN read only csak beolvassa a procedúra, nem módositja
---  lehet:     OUT csak kimenet, ebbe updatelt értéket visszaadja
---             IN OUT bemenetként megkapja, majd módositva fogja "visszaadni"
--- fontos hogy itt nincs return operátor
--- IS után jöhetnek a segédváltozó deklarációk
--- név tipus := érték
+-- procedÃºra
+-- CREATE OR REPLACE PROCEDURE az megcsinÃ¡lja/felÃ¼lirja
+-- aztÃ¡n fÃ¼ggvÃ©ny_nÃ©v(paramÃ©terek)
+--  defaultban IN a paramÃ©ter (n IN number)
+--             IN read only csak beolvassa a procedÃºra, nem mÃ³dositja
+--  lehet:     OUT csak kimenet, ebbe updatelt Ã©rtÃ©ket visszaadja
+--             IN OUT bemenetkÃ©nt megkapja, majd mÃ³dositva fogja "visszaadni"
+-- fontos hogy itt nincs return operÃ¡tor
+-- IS utÃ¡n jÃ¶hetnek a segÃ©dvÃ¡ltozÃ³ deklarÃ¡ciÃ³k
+-- nÃ©v tipus := Ã©rtÃ©k
 CREATE OR REPLACE PROCEDURE fib(n integer) IS
     a INTEGER := 0;
     b INTEGER := 1;
--- BEGIN ebbe jön a procedúra/függvény implementációja, lehetnek itt ciklusok, if állitások kb minden
+-- BEGIN ebbe jÃ¶n a procedÃºra/fÃ¼ggvÃ©ny implementÃ¡ciÃ³ja, lehetnek itt ciklusok, if Ã¡llitÃ¡sok kb minden
 BEGIN
     -- IF STATEMENT
     -- SYNTAX: IF akarmi THEN do something END IF;
@@ -39,12 +40,12 @@ BEGIN
     
     -- lehet sima LOOP
     -- WHILE LOOP
-    -- rakni labeleket, és azokra a loopban ugrani is lehet
+    -- rakni labeleket, Ã©s azokra a loopban ugrani is lehet
     -- <<outer loop>>
     -- olyan mint egy break
     
     -- FOR LOOP
-    -- SYNTAX: FOR valtozo IN (REVERSE (ha visszafele kell)) kezdet .. vég LOOP 
+    -- SYNTAX: FOR valtozo IN (REVERSE (ha visszafele kell)) kezdet .. vÃ©g LOOP 
     --      valami
     -- END LOOP;
     FOR i IN 1..n LOOP
@@ -52,22 +53,22 @@ BEGIN
         a := b - a;
     END LOOP;
 
-    -- script outputra kiiratja azt amit megadunk neki proceduránál jön jól
+    -- script outputra kiiratja azt amit megadunk neki procedurÃ¡nÃ¡l jÃ¶n jÃ³l
     DBMS_OUTPUT.PUT_LINE('10th fib num: ' || a);
     
--- kötelezõen END; /-el zárjuk a végét
+-- kÃ¶telezÃµen END; /-el zÃ¡rjuk a vÃ©gÃ©t
 END;
 /
 
--- sortörés itt fontos am nem fut le
+-- sortÃ¶rÃ©s itt fontos am nem fut le
 set serveroutput on
 execute fib(10);
 
--- függvény szignatúra
--- CREATE OR REPLACE FUNCTION megcsinálja vagy felülirja a függvényt
--- függvénynév(változók)
--- RETURN tipus IS visszatérés tipusát itt megadjuk
--- az IS után jöhetnek a deklarációk
+-- fÃ¼ggvÃ©ny szignatÃºra
+-- CREATE OR REPLACE FUNCTION megcsinÃ¡lja vagy felÃ¼lirja a fÃ¼ggvÃ©nyt
+-- fÃ¼ggvÃ©nynÃ©v(vÃ¡ltozÃ³k)
+-- RETURN tipus IS visszatÃ©rÃ©s tipusÃ¡t itt megadjuk
+-- az IS utÃ¡n jÃ¶hetnek a deklarÃ¡ciÃ³k
 CREATE OR REPLACE FUNCTION lnko(p1 integer, p2 integer)
 RETURN number IS
     temp integer;
@@ -83,7 +84,7 @@ BEGIN
 END;
 /
 
--- tesztelésre egy dummy tábla van "dual" néven
+-- tesztelÃ©sre egy dummy tÃ¡bla van "dual" nÃ©ven
 SELECT lnko(3570,7293) FROM dual;
 
 CREATE OR REPLACE FUNCTION faktor(n integer)
@@ -112,13 +113,13 @@ BEGIN
     LOOP
         -- ha benne van akkor arra az indexre megy
         v_index := INSTR(p1, p2, v_index);
-        -- ha nincs benne akkor INSTR 0 lesz és kilép
+        -- ha nincs benne akkor INSTR 0 lesz Ã©s kilÃ©p
         EXIT WHEN v_index = 0;
-        -- mivel benne van countert növeljük
+        -- mivel benne van countert nÃ¶veljÃ¼k
         v_count := v_count + 1;
-        -- mivel az INSTR a kezdeti pozira megy ezért ugorni kell
-        --annyit amennyi a keresett szó hossza,
-        -- hogy ne számolja kétszer
+        -- mivel az INSTR a kezdeti pozira megy ezÃ©rt ugorni kell
+        --annyit amennyi a keresett szÃ³ hossza,
+        -- hogy ne szÃ¡molja kÃ©tszer
         v_index := v_index + LENGTH(p2);
     END LOOP;
     RETURN v_count;
@@ -134,21 +135,21 @@ CREATE OR REPLACE FUNCTION osszeg(p_char VARCHAR2) RETURN NUMBER IS
 BEGIN
   num_str := p_char;
   
-  -- Eltávolítjuk a felesleges szóközöket
+  -- EltÃ¡volÃ­tjuk a felesleges szÃ³kÃ¶zÃ¶ket
   num_str := REPLACE(num_str, ' ', '');
 
-  -- A '+' karakterrel elválasztott részekre bontjuk a karakterláncot (ha nincs + akkor kilép mert instr 0 lesz)
+  -- A '+' karakterrel elvÃ¡lasztott rÃ©szekre bontjuk a karakterlÃ¡ncot (ha nincs + akkor kilÃ©p mert instr 0 lesz)
   WHILE INSTR(num_str, '+') > 0 LOOP
-    -- TO_NUMBER átalakitja a stringet numberré
-    -- substr megkeresi hogy hol van + és az elõtte lévõ stringet nézi számként (emiatt jó a minusz is, mert 1-tõl + elõtti részig vizsgál)
+    -- TO_NUMBER Ã¡talakitja a stringet numberrÃ©
+    -- substr megkeresi hogy hol van + Ã©s az elÃµtte lÃ©vÃµ stringet nÃ©zi szÃ¡mkÃ©nt (emiatt jÃ³ a minusz is, mert 1-tÃµl + elÃµtti rÃ©szig vizsgÃ¡l)
     num_val := TO_NUMBER(SUBSTR(num_str, 1, INSTR(num_str, '+')-1));
-    -- hozzáadja a számot
+    -- hozzÃ¡adja a szÃ¡mot
     sum_val := sum_val + num_val;
     -- kidobja a feldolgozott stringet
     num_str := SUBSTR(num_str, INSTR(num_str, '+')+1);
   END LOOP;
   
-  -- A maradék részt is hozzáadjuk az összeghez
+  -- A maradÃ©k rÃ©szt is hozzÃ¡adjuk az Ã¶sszeghez
   num_val := TO_NUMBER(num_str);
   sum_val := sum_val + num_val;
   
